@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>will you be my valentine? 🤍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fff5f5 0%, #ffe4e4 100%);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Quicksand', 'Segoe UI', sans-serif;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .valentine-container {
+            background: rgba(255, 250, 250, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 56px;
+            padding: 2.8rem 2.2rem;
+            box-shadow: 0 25px 45px rgba(200, 120, 120, 0.2), 0 10px 25px rgba(255, 200, 200, 0.3);
+            border: 1.5px solid rgba(255, 230, 230, 0.7);
+            max-width: 750px;
+            width: 90%;
+            text-align: center;
+            z-index: 30;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .bear-heart {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 8px 12px rgba(255, 120, 120, 0.2));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .question {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #4a2a2a;
+            letter-spacing: -0.5px;
+            margin-bottom: 2.2rem;
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+            word-break: break-word;
+        }
+
+        .buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            position: relative;
+            transition: opacity 0.4s ease;
+        }
+
+        .btn {
+            border: none;
+            background: white;
+            padding: 1rem 3rem;
+            border-radius: 80px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #5c3a3a;
+            box-shadow: 0 8px 0 #d6a0a0, 0 12px 28px rgba(160, 80, 80, 0.25);
+            transition: all 0.08s ease-out;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            display: inline-block;
+            z-index: 40;
+            min-width: 140px;
+        }
+
+        .btn:hover {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #c49191, 0 18px 30px rgba(140, 70, 70, 0.3);
+        }
+
+        .btn-yes {
+            background: #ffaaaa;
+            color: white;
+            box-shadow: 0 8px 0 #b34b4b, 0 12px 32px rgba(255, 70, 70, 0.5);
+            border: 2px solid #ffe0e0;
+        }
+
+        .btn-yes:hover {
+            background: #ff9898;
+            box-shadow: 0 4px 0 #9e3e3e, 0 18px 36px rgba(255, 60, 60, 0.6);
+        }
+
+        .btn-no {
+            background: #fff0f0;
+            color: #6b4a4a;
+            box-shadow: 0 6px 0 #cfa0a0, 0 12px 24px rgba(140, 80, 80, 0.2);
+            border: 2px solid #ffe0e0;
+        }
+
+        .happy-reply {
+            margin-top: 2.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #7a2e2e;
+            background: rgba(255, 240, 240, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 1.3rem 1.8rem;
+            border-radius: 100px;
+            border: 3px dashed #ff8a8a;
+            display: inline-block;
+            animation: softPop 0.5s ease-out;
+            box-shadow: 0 6px 0 rgba(220, 120, 120, 0.3);
+            line-height: 1.4;
+        }
+
+        @keyframes softPop {
+            0% { opacity: 0; transform: scale(0.6); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .hidden-message {
+            display: none !important;
+        }
+
+        .show-message {
+            display: block !important;
+        }
+
+        .moving-btn-wrapper {
+            display: inline-block;
+            position: relative;
+            transition: none;
+            z-index: 99999 !important;
+            will-change: left, top;
+        }
+
+        .fixed {
+            position: fixed !important;
+            margin: 0 !important;
+            transform: none !important;
+        }
+
+        .floating-decor {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: floatAround 15s infinite ease-in-out;
+            color: #ff8888;
+            z-index: 1;
+        }
+
+        @keyframes floatAround {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .small-note {
+            margin-top: 0.8rem;
+            font-size: 1rem;
+            color: #995555;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            .valentine-container { padding: 2rem 1.2rem; width: 95%; }
+            .question { font-size: 1.8rem; }
+            .btn { padding: 0.8rem 1.5rem; font-size: 1.4rem; min-width: 120px; }
+            .bear-heart { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Elemente decorative plutitoare -->
+    <div class="floating-decor" style="top: 5%; left: 2%;">🧸</div>
+    <div class="floating-decor" style="bottom: 8%; right: 3%;">❤️</div>
+    <div class="floating-decor" style="top: 15%; right: 8%;">🧸</div>
+    <div class="floating-decor" style="bottom: 15%; left: 5%;">🌸</div>
+    <div class="floating-decor" style="top: 70%; left: 10%;">❤️</div>
+    <div class="floating-decor" style="top: 30%; right: 15%;">🧸</div>
+    <div class="floating-decor" style="bottom: 25%; right: 12%;">❤️</div>
+
+    <div class="valentine-container" id="valentineCard">
+        <div class="bear-heart">
+            <span>🧸</span>
+            <span>❤️</span>
+            <span>🧸</span>
+        </div>
+        
+        <div class="question">
+            Will you be my valentine?
+        </div>
+
+        <div class="buttons-wrapper" id="buttonWrapper">
+            <button class="btn btn-yes" id="yesBtn">DA</button>
+            
+            <div id="noBtnContainer" class="moving-btn-wrapper" style="display: inline-block; position: relative;">
+                <button class="btn btn-no" id="noBtn">NU</button>
+            </div>
+        </div>
+
+        <div id="happyResponse" class="hidden-message">
+            <div class="happy-reply">
+                🎀💖 YAaaY! 🥺🤍<br>
+                ești cea mai dulce! 🧸❤️
+            </div>
+            <div class="small-note">(Te PWP ❤️❤️)</div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Elemente principale
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const noContainer = document.getElementById('noBtnContainer');
+            const happyMsg = document.getElementById('happyResponse');
+            const wrapper = document.getElementById('buttonWrapper');
+            
+            let hasAttempted = false;
+            let originalParent = null;
+            let originalSibling = null;
+
+            // Salvare poziție originală
+            function saveOriginalPosition() {
+                if (!noContainer) return;
+                originalParent = noContainer.parentNode;
+                originalSibling = noContainer.nextSibling;
+            }
+            saveOriginalPosition();
+
+            // Funcție care mută butonul NU în poziție random - GARANTAT ÎN ECran
+            function moveNoButtonRandomly() {
+                if (!noContainer) return;
+                
+                // Măsurători exacte
+                const btnWidth = noContainer.offsetWidth;
+                const btnHeight = noContainer.offsetHeight;
+                
+                // Dimensiuni sigure - dacă nu avem încă, folosim estimări
+                const width = btnWidth > 50 ? btnWidth : 130;
+                const height = btnHeight > 40 ? btnHeight : 80;
+                
+                // Margine de siguranță generoasă - 15px din fiecare parte
+                const safeMargin = 15;
+                
+                // Calculăm limitele MAXIME disponibile
+                let maxX = window.innerWidth - width - safeMargin;
+                let maxY = window.innerHeight - height - safeMargin;
+                let minX = safeMargin;
+                let minY = safeMargin;
+                
+                // VERIFICARE SUPLIMENTARĂ: dacă maxX sau maxY sunt mai mici decât minX/minY, ajustăm
+                if (maxX < minX) {
+                    maxX = minX + 10; // asigurăm măcar un spațiu mic
+                }
+                if (maxY < minY) {
+                    maxY = minY + 10;
+                }
+                
+                // Generăm coordonatele random
+                let randomLeft = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+                let randomTop = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+                
+                // VERIFICARE FINALĂ: asigurăm că nu iese din ecran
+                randomLeft = Math.min(Math.max(randomLeft, safeMargin), window.innerWidth - width - safeMargin);
+                randomTop = Math.min(Math.max(randomTop, safeMargin), window.innerHeight - height - safeMargin);
+                
+                // Aplicăm poziționarea FIXED
+                noContainer.style.position = 'fixed';
+                noContainer.style.left = randomLeft + 'px';
+                noContainer.style.top = randomTop + 'px';
+                noContainer.style.right = 'auto';
+                noContainer.style.bottom = 'auto';
+                noContainer.style.transform = 'none';
+                noContainer.style.margin = '0';
+                noContainer.classList.add('fixed');
+                
+                // Debug vizual - eliminat pentru producție
+                console.log(`Buton mutat la: ${randomLeft}, ${randomTop} | Dimensiuni: ${width}x${height} | Ecran: ${window.innerWidth}x${window.innerHeight}`);
+            }
+
+            // Reset la poziția originală
+            function resetNoButtonPosition() {
+                if (!noContainer) return;
+                
+                noContainer.style.position = 'relative';
+                noContainer.style.left = '';
+                noContainer.style.top = '';
+                noContainer.style.right = '';
+                noContainer.style.bottom = '';
+                noContainer.style.transform = '';
+                noContainer.style.margin = '';
+                noContainer.classList.remove('fixed');
+                hasAttempted = false;
+            }
+
+            // La început, poziție normală
+            resetNoButtonPosition();
+
+            // Handler pentru butonul NU
+            function handleNoButtonAction(e) {
+                // Prevenim orice acțiune implicită
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                // Dacă s-a apăsat deja DA, nu mai facem nimic
+                if (happyMsg && happyMsg.classList.contains('show-message')) {
+                    return false;
+                }
+                
+                if (!hasAttempted) {
+                    // Prima încercare: activăm modul fugar
+                    hasAttempted = true;
+                    // Scurtă întârziere pentru a permite redimensionarea corectă
+                    setTimeout(() => {
+                        moveNoButtonRandomly();
+                    }, 10);
+                } else {
+                    // Deja fugar, mutăm în altă poziție
+                    moveNoButtonRandomly();
+                }
+                return false;
+            }
+
+            // Atașăm evenimente PENTRU CLICK (prima activare)
+            if (noBtn) {
+                // Doar click și touch pentru activare inițială
+                noBtn.addEventListener('click', handleNoButtonAction);
+                noBtn.addEventListener('touchstart', handleNoButtonAction, { passive: false });
+                
+                // Mouse enter doar după activare
+                noBtn.addEventListener('mouseenter', function(e) {
+                    if (hasAttempted && happyMsg && !happyMsg.classList.contains('show-message')) {
+                        moveNoButtonRandomly();
+                    }
+                });
+            }
+            
+            // Pentru container
+            if (noContainer) {
+                noContainer.addEventListener('mouseenter', function(e) {
+                    if (hasAttempted && happyMsg && !happyMsg.classList.contains('show-message')) {
+                        moveNoButtonRandomly();
+                    }
+                });
+            }
+
+            // BUTONUL DA
+            if (yesBtn) {
+                yesBtn.addEventListener('click', function(e) {
+                    // Ascundem butoanele
+                    if (wrapper) {
+                        wrapper.style.opacity = '0';
+                        wrapper.style.pointerEvents = 'none';
+                    }
+                    
+                    // Afișăm mesajul
+                    if (happyMsg) {
+                        happyMsg.classList.remove('hidden-message');
+                        happyMsg.classList.add('show-message');
+                    }
+
+                    // Eliminăm evenimentele
+                    if (noBtn) {
+                        noBtn.removeEventListener('click', handleNoButtonAction);
+                        noBtn.removeEventListener('touchstart', handleNoButtonAction);
+                    }
+
+                    // Ascundem butoanele
+                    if (noContainer) {
+                        noContainer.style.opacity = '0';
+                        noContainer.style.pointerEvents = 'none';
+                    }
+                    if (yesBtn) {
+                        yesBtn.style.opacity = '0';
+                        yesBtn.style.pointerEvents = 'none';
+                    }
+
+                    // Fundal romantic
+                    document.body.style.background = 'linear-gradient(145deg, #ffe0e8, #ffd0d8)';
+                    
+                    // Schimbăm inimioarele
+                    const bearDiv = document.querySelector('.bear-heart');
+                    if (bearDiv) {
+                        bearDiv.innerHTML = '❤️🧸❤️🧸❤️🧸❤️'; 
+                    }
+                });
+            }
+
+            // La redimensionare - repoziționăm DAR GARANTĂM CĂ E ÎN ECran
+            window.addEventListener('resize', function() {
+                if (hasAttempted && happyMsg && !happyMsg.classList.contains('show-message')) {
+                    // Folosim requestAnimationFrame pentru sincronizare
+                    requestAnimationFrame(() => {
+                        moveNoButtonRandomly();
+                    });
+                }
+            });
+
+            // La încărcare - reset complet
+            window.addEventListener('load', function() {
+                resetNoButtonPosition();
+                happyMsg.classList.add('hidden-message');
+                happyMsg.classList.remove('show-message');
+                document.body.style.background = 'linear-gradient(145deg, #fff5f5 0%, #ffe4e4 100%)';
+            });
+
+            // Verificare periodică - asigură că butonul e în ecran (rețea de siguranță)
+            setInterval(function() {
+                if (hasAttempted && noContainer && noContainer.classList.contains('fixed') && 
+                    happyMsg && !happyMsg.classList.contains('show-message')) {
+                    
+                    const rect = noContainer.getBoundingClientRect();
+                    const isOutOfBounds = 
+                        rect.right > window.innerWidth - 5 || 
+                        rect.left < 5 || 
+                        rect.bottom > window.innerHeight - 5 || 
+                        rect.top < 5;
+                    
+                    if (isOutOfBounds) {
+                        console.log('Corecție: butonul era parțial în afara ecranului');
+                        moveNoButtonRandomly();
+                    }
+                }
+            }, 500); // verifică la fiecare 500ms
+            
+            // Prevenim scroll-ul când butonul e în modul fugar
+            window.addEventListener('scroll', function(e) {
+                if (hasAttempted && noContainer && noContainer.classList.contains('fixed')) {
+                    window.scrollTo(0, 0);
+                }
+            }, { passive: false });
+
+        })();
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+</body>
+</html>
